@@ -143,17 +143,29 @@ function App() {
     const [data] = topics.filter((el) => el.id === id);
     content = <Article title={data.title} body={data.body}></Article>;
     contextControl = (
-      <li>
-        <a
-          href={`/update/${id}`}
-          onClick={(e) => {
-            e.preventDefault();
-            setMode("UPDATE");
-          }}
-        >
-          Update
-        </a>
-      </li>
+      <>
+        <li>
+          <a
+            href={`/update/${id}`}
+            onClick={(e) => {
+              e.preventDefault();
+              setMode("UPDATE");
+            }}
+          >
+            Update
+          </a>
+        </li>
+        <li>
+          <input
+            type="button"
+            value="Delete"
+            onClick={() => {
+              setTopics(topics.filter((topic) => topic.id !== id));
+              setMode("WELCOME");
+            }}
+          ></input>
+        </li>
+      </>
     );
   } else if (mode === "CREATE") {
     content = (
