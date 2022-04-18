@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 
 // 컴포넌트, 사용자 정의 태그
 function Header(props) {
@@ -28,7 +29,7 @@ function Nav(props) {
           href={"/read/" + topic.id}
           onClick={(e) => {
             e.preventDefault();
-            props.onChangeMode(e.target.id);
+            props.onChangeMode(Number(e.target.id));
           }}
         >
           {topic.title}
@@ -54,26 +55,39 @@ function Article({ title, body }) {
 }
 
 function App() {
+  const [mode, setMode] = useState("WELCOME");
+  const [id, setId] = useState(null);
+
   const topics = [
     { id: 1, title: "html", body: "html is..." },
     { id: 2, title: "css", body: "css is..." },
     { id: 3, title: "javascript", body: "javascript is..." },
   ];
+
+  let content = null;
+  if (mode === "WELCOME") {
+    content = <Article title="Welcome" body="Hello, WEB"></Article>;
+  } else if (mode === "READ") {
+    const [data] = topics.filter((el) => el.id === id);
+    content = <Article title={data.title} body={data.body}></Article>;
+  }
+
   return (
     <div className="App">
       <Header
         title="WEB"
         onChangeMode={() => {
-          alert("header");
+          setMode("WELCOME");
         }}
       ></Header>
       <Nav
         topics={topics}
-        onChangeMode={(id) => {
-          alert(id);
+        onChangeMode={(_id) => {
+          setMode("READ");
+          setId(_id);
         }}
       ></Nav>
-      <Article title="Welcome" body="Hello, WEB"></Article>
+      {content}
     </div>
   );
 }
