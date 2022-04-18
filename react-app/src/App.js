@@ -1,49 +1,52 @@
 import "./App.css";
 
 // 컴포넌트, 사용자 정의 태그
-function Header() {
+function Header(props) {
   return (
     <header>
       <h1>
-        <a href="/">WEB</a>
+        <a href="/">{props.title}</a>
       </h1>
     </header>
   );
 }
 
-function Nav() {
+function Nav(props) {
+  const lis = props.topics.map((topic) => {
+    return (
+      <li key={topic.id}>
+        <a href={"/read/" + topic.id}>{topic.title}</a>
+      </li>
+    );
+  });
+
   return (
     <nav>
-      <ol>
-        <li>
-          <a href="/read/1">html</a>
-        </li>
-        <li>
-          <a href="/read/2">css</a>
-        </li>
-        <li>
-          <a href="/read/3">js</a>
-        </li>
-      </ol>
+      <ol>{lis}</ol>
     </nav>
   );
 }
 
-function Article() {
+function Article({ title, body }) {
   return (
     <article>
-      <h2>Welcome</h2>
-      Hello, WEB
+      <h2>{title}</h2>
+      {body}
     </article>
   );
 }
 
 function App() {
+  const topics = [
+    { id: 1, title: "html", body: "html is..." },
+    { id: 2, title: "css", body: "css is..." },
+    { id: 3, title: "javascript", body: "javascript is..." },
+  ];
   return (
     <div className="App">
-      <Header></Header>
-      <Nav></Nav>
-      <Article></Article>
+      <Header title="WEB"></Header>
+      <Nav topics={topics}></Nav>
+      <Article title="Welcome" body="Hello, WEB"></Article>
     </div>
   );
 }
