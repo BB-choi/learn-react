@@ -1,0 +1,27 @@
+.App-header {
+  width: 100px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.wrap {
+  display: flex;
+}
+
+.slider {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.div1 {
+  background-color: aquamarine;
+}
+
+.div2 {
+  background-color: beige;
+}
+
+.div3 {
+  background-color: violet;
+}
